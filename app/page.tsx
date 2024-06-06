@@ -1,13 +1,12 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import Login from "@/components/login";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <h1 className="text-xl">Testing H1</h1>
-        <Button>Click me</Button>
-      </div>
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+        Spotify Shared
+      </h1>
+      <Login />
     </main>
   );
 }

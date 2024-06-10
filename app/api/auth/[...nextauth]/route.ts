@@ -2,26 +2,31 @@ import NextAuth from 'next-auth';
 import { NextAuthOptions } from 'next-auth';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
+const SpotifyScope =
+  "user-read-recently-played user-read-playback-state user-top-read user-modify-playback-state user-read-currently-playing user-follow-read playlist-read-private user-read-email user-read-private user-library-read playlist-read-collaborative";
+
 export const authOptions: NextAuthOptions = {
   providers: [
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID || '',
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET || '',
+      authorization: {
+        params: { scope: SpotifyScope },
+      },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({token, account}) {
-      console.log("JWT Callback - token:", token, "account:", account);
+      console.log(account, 'jwt account');
       if (account) {
-        token = Object.assign({}, token, { access_token: account.access_token });
+        token.accessToken = account.access_token;
       }
       return token
     },
     async session({session, token}) {
-    console.log("Session Callback - session:", session, "token:", token);
     if(session) {
-      session = Object.assign({}, session, {access_token: token.access_token})
+      session = Object.assign({}, session, {accessToken: token.accessToken})
       }
     return session
     }

@@ -6,9 +6,12 @@ interface SpotifyAlbumTrack {
   name: string;
 }
 
+type CheckUserSavedTracksResponse = boolean[];
+
 export function useGetAlbumTracks(albumId: string) {
   const { data: session } = useSession();
   const [albumTracks, setAlbumTracks] = useState<SpotifyAlbumTrack[]>([]);
+  const [savedStatus, setSavedStatus] = useState<CheckUserSavedTracksResponse>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,9 +29,15 @@ export function useGetAlbumTracks(albumId: string) {
           }
 
           const data = await response.json();
-          const tracks = data.items;
+          const tracks: SpotifyAlbumTrack[] = data.items;
+
+          console.log(tracks);
           setAlbumTracks(tracks);
           setError(null);
+
+          // Fetch saved status of tracks
+          const trackIds = tracks.map(track => track.id);
+          checkUserSavedTracks(trackIds, session.accessToken);
         } catch (err) {
           console.error("An error occurred while fetching album tracks:", err);
           setError("Failed to load album tracks");
@@ -36,8 +45,34 @@ export function useGetAlbumTracks(albumId: string) {
       }
     };
 
+    const checkUserSavedTracks = async (trackIds: string[], accessToken: string) => {
+      const ids = trackIds.join(',');
+      const url = `https://api.spotify.com/v1/me/tracks/contains?ids=${ids}`;
+
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to check user saved tracks');
+        }
+
+        const data: CheckUserSavedTracksResponse = await response.json();
+        console.log('saved tracks', data);
+        setSavedStatus(data);
+      } catch (error) {
+        console.error('Error checking user saved tracks:', error);
+        setSavedStatus(new Array(trackIds.length).fill(false));
+      }
+    };
+
     fetchAlbumTracks();
   }, [albumId, session]);
 
-  return { albumTracks, error };
+  return { albumTracks, savedStatus, error };
 }

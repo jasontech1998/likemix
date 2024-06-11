@@ -1,4 +1,3 @@
-// useGetAlbumTracks.ts
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
@@ -14,7 +13,7 @@ export function useGetAlbumTracks(albumId: string) {
 
   useEffect(() => {
     const fetchAlbumTracks = async () => {
-      if (session?.accessToken) {
+      if (session?.accessToken && albumId) {
         try {
           const response = await fetch(`https://api.spotify.com/v1/albums/${albumId}/tracks`, {
             headers: {

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Login from "@/components/login";
 
-export default function Home() {
+export default function Page() {
   const { data: session, status } = useSession();
 
   const router = useRouter();

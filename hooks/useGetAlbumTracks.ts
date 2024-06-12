@@ -65,7 +65,6 @@ export function useGetAlbumTracks(albumId: string) {
         const data: CheckUserSavedTracksResponse = await response.json();
 
         const savedTracks = tracks.filter((track, index) => data[index]);
-        console.log(savedTracks);
         setSavedTracks(savedTracks);
       } catch (error) {
         console.error('Error checking user saved tracks:', error);

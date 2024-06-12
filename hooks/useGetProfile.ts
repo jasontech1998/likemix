@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore } from "next/cache";
 
 interface SpotifyUserProfile {
   display_name: string;
@@ -10,9 +10,16 @@ interface SpotifyUserProfile {
   id: string;
 }
 
+const profileInitialState = {
+  display_name: "",
+  email: "",
+  images: [{ url: "" }],
+  id: "",
+};
+
 export function useGetProfile() {
   const { data: session } = useSession();
-  const [profile, setProfile] = useState<SpotifyUserProfile | null>(null);
+  const [profile, setProfile] = useState<SpotifyUserProfile>(profileInitialState);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

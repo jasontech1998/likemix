@@ -8,9 +8,16 @@ import AlbumCard from "@/components/AlbumCard";
 import Logout from "@/components/logout";
 import Loading from "./loading";
 
+import { useRouter } from "next/navigation";
+
 export default function Page() {
+  const router = useRouter()
   const { profile, error } = useGetProfile();
   const { tracks } = useGetSavedTracks();
+
+  const albumCard__onClick = (albumId: string) => {
+    router.push(`/album/${albumId}`);
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -31,6 +38,7 @@ export default function Page() {
               track={track}
               index={index}
               userId={profile?.id}
+              onClick={albumCard__onClick}
             />
           ))}
         </div>

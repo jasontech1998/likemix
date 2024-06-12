@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore } from "next/cache";
 
 interface SpotifyTrack {
   album: {
@@ -13,16 +13,23 @@ interface SpotifyTrack {
   artists: { name: string }[];
 }
 
-export interface TransformedTrack {
+export interface TAlbum {
   albumId: string;
   albumImageUrl: string;
   albumName: string;
   artistName: string;
 }
 
+const albumInitialState = {
+  albumId: "",
+  albumImageUrl: "",
+  albumName: "",
+  artistName: "",
+};
+
 export function useGetSavedTracks() {
   const { data: session } = useSession();
-  const [tracks, setTracks] = useState<TransformedTrack[]>([]);
+  const [tracks, setTracks] = useState<TAlbum[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

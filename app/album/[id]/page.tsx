@@ -18,7 +18,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -51,7 +50,6 @@ export default function Page() {
   const handleCreatePlaylist = () => {
     const trackUris = savedTracks.map((track) => track.uri);
     if (profile.id) {
-      console.log("create playlist");
       createPlaylist(profile.id, "My New Playlist", trackUris);
     } else {
       console.error("User ID is undefined");
@@ -96,7 +94,6 @@ export default function Page() {
         <p className="text-xl font-semibold">
           Your liked songs from {album.artistName}
         </p>
-        <CopyUrl url="Testing this url"></CopyUrl>
       </div>
       <div className="w-full max-w-2xl mt-6 p-6 bg-white shadow-lg rounded-lg">
         {error ? (
@@ -122,7 +119,7 @@ export default function Page() {
                   </DialogTitle>
                 </DialogHeader>
                 {playlistCreated ? (
-                  <CopyUrl url="Testing this url"></CopyUrl>
+                  <CopyUrl url={playlistUrl}></CopyUrl>
                 ) : null}
               </DialogContent>
             </Dialog>

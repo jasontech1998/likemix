@@ -5,8 +5,8 @@ const useCreatePlaylistLink = () => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [playlistId, setPlaylistId] = useState<string | null>(null);
-  const [playlistUrl, setPlaylistUrl] = useState<string | null>(null);
+  const [playlistId, setPlaylistId] = useState<string>('');
+  const [playlistUrl, setPlaylistUrl] = useState<string>('');
 
   const createPlaylist = async (
     userId: string,

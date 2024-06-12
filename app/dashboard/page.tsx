@@ -1,10 +1,12 @@
 "use client";
 
+import React, { Suspense } from "react";
 import { useGetProfile } from "@/hooks/useGetProfile";
 import { useGetSavedTracks } from "@/hooks/useGetSavedTracks";
 
 import TrackCard from "@/components/TrackCard";
 import Logout from "@/components/logout";
+import Loading from "./loading";
 
 export default function Page() {
   const { profile, error } = useGetProfile();
@@ -21,15 +23,18 @@ export default function Page() {
           <h2>Welcome, {profile.display_name}</h2>
         </div>
       )}
-      <div className="grid grid-cols-3 gap-4 mt-8">
-        {tracks.map((track, index) => (
-          <TrackCard
-            key={track.albumId + index}
-            track={track}
-            index={index}
-          />
-        ))}
-      </div>
+      <Suspense fallback={<Loading />}>
+        <div className="grid grid-cols-3 gap-4 mt-8">
+          {tracks.map((track, index) => (
+            <TrackCard
+              key={track.albumId + index}
+              track={track}
+              index={index}
+              userId={profile?.id}
+            />
+          ))}
+        </div>
+      </Suspense>
       <Logout />
     </main>
   );

@@ -12,6 +12,7 @@ import {
   import { Button } from "@/components/ui/button";
   
   import Image from "next/image";
+  import CreatePlaylistButton from "./CreatePlaylistButton";
   import { TransformedTrack } from "@/hooks/useGetSavedTracks";
   import { useGetAlbumTracks } from "@/hooks/useGetAlbumTracks";
   import { useState } from "react";
@@ -19,11 +20,12 @@ import {
   interface TrackCardProps {
     track: TransformedTrack;
     index: number;
+    userId: string | undefined;
   }
   
-  const TrackCard: React.FC<TrackCardProps> = ({ track, index }) => {
+  const TrackCard: React.FC<TrackCardProps> = ({ track, index, userId }) => {
     const [dialogOpen, setDialogOpen] = useState(false);
-    const { albumTracks, savedStatus, error } = useGetAlbumTracks(
+    const { savedTracks, error } = useGetAlbumTracks(
       dialogOpen ? track.albumId : ""
     );
   
@@ -70,8 +72,7 @@ import {
                   {track.albumName} - {track.artistName}
                 </DialogTitle>
                 <DialogDescription>
-                  This action cannot be undone. This will permanently delete your
-                  account and remove your data from our servers.
+                  Your liked songs from {track.albumName}
                 </DialogDescription>
               </div>
             </div>
@@ -85,10 +86,10 @@ import {
                   <h4 className="mb-4 text-sm font-medium leading-none">
                     Liked songs
                   </h4>
-                  {albumTracks.map((albumTrack, index) => (
-                    <div key={albumTrack.id}>
+                  {savedTracks.map((albumTrack, index) => (
+                    <div key={albumTrack.id + index}>
                       <div className="text-sm">
-                        {albumTrack.name} {savedStatus[index] ? "(Liked)" : "(Not Liked)"}
+                        {albumTrack.name}
                       </div>
                       <Separator className="my-2" />
                     </div>
@@ -98,7 +99,7 @@ import {
             )}
           </div>
           <DialogFooter>
-            <Button type="submit">Send liked songs</Button>
+            <CreatePlaylistButton userId={userId} savedTracks={savedTracks}></CreatePlaylistButton>
           </DialogFooter>
         </DialogContent>
       </Dialog>

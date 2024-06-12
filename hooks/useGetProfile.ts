@@ -1,10 +1,13 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
+import { unstable_noStore as noStore } from 'next/cache';
+
 interface SpotifyUserProfile {
   display_name: string;
   email: string;
   images: { url: string }[];
+  id: string;
 }
 
 export function useGetProfile() {
@@ -14,6 +17,7 @@ export function useGetProfile() {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      noStore();
       if (session?.accessToken) {
         try {
           const response = await fetch("https://api.spotify.com/v1/me", {

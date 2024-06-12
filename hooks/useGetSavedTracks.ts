@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
+import { unstable_noStore as noStore } from 'next/cache';
+
 interface SpotifyTrack {
   album: {
     id: string;
@@ -25,10 +27,11 @@ export function useGetSavedTracks() {
 
   useEffect(() => {
     const fetchSavedTracks = async () => {
+      noStore();
       if (session?.accessToken) {
         try {
           const response = await fetch(
-            "https://api.spotify.com/v1/me/tracks?limit=50",
+            "https://api.spotify.com/v1/me/tracks?limit=21",
             {
               headers: {
                 Authorization: "Bearer " + session.accessToken,

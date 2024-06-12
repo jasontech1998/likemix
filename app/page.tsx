@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import Login from "@/components/login";
+import Login from "@/components/Login";
 
 export default function Page() {
   const { data: session, status } = useSession();

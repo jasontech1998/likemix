@@ -1,17 +1,27 @@
 "use client";
 
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import { useGetProfile } from "@/hooks/useGetProfile";
 import { useGetSavedTracks } from "@/hooks/useGetSavedTracks";
 
 import AlbumCard from "@/components/AlbumCard";
-import Logout from "@/components/logout";
+import Logout from "@/components/Logout";
 import Loading from "./loading";
 
 import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const { data: session, status } = useSession();
   const router = useRouter()
+
+  useEffect(() => {
+    const isUnAuthenticated = status === "unauthenticated";
+    if (isUnAuthenticated) {
+      router.push("/");
+    }
+  }, [status, router]);
+  
   const { profile, error } = useGetProfile();
   const { tracks } = useGetSavedTracks();
 

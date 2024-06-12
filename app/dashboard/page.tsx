@@ -4,7 +4,7 @@ import React, { Suspense } from "react";
 import { useGetProfile } from "@/hooks/useGetProfile";
 import { useGetSavedTracks } from "@/hooks/useGetSavedTracks";
 
-import TrackCard from "@/components/TrackCard";
+import AlbumCard from "@/components/AlbumCard";
 import Logout from "@/components/logout";
 import Loading from "./loading";
 
@@ -26,7 +26,7 @@ export default function Page() {
       <Suspense fallback={<Loading />}>
         <div className="grid grid-cols-3 gap-4 mt-8">
           {tracks.map((track, index) => (
-            <TrackCard
+            <AlbumCard
               key={track.albumId + index}
               track={track}
               index={index}

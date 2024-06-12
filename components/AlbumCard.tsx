@@ -9,7 +9,6 @@ import {
   } from "@/components/ui/dialog";
   import { ScrollArea } from "@/components/ui/scroll-area";
   import { Separator } from "@/components/ui/separator";
-  import { Button } from "@/components/ui/button";
   
   import Image from "next/image";
   import CreatePlaylistButton from "./CreatePlaylistButton";
@@ -23,7 +22,7 @@ import {
     userId: string | undefined;
   }
   
-  const TrackCard: React.FC<TrackCardProps> = ({ track, index, userId }) => {
+  const AlbumCard: React.FC<TrackCardProps> = ({ track, index, userId }) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const { savedTracks, error } = useGetAlbumTracks(
       dialogOpen ? track.albumId : ""
@@ -106,5 +105,5 @@ import {
     );
   };
   
-  export default TrackCard;
+  export default AlbumCard;
   

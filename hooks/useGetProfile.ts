@@ -1,6 +1,3 @@
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-
 import { unstable_noStore as noStore } from "next/cache";
 
 interface SpotifyUserProfile {
@@ -10,45 +7,24 @@ interface SpotifyUserProfile {
   id: string;
 }
 
-const profileInitialState = {
-  display_name: "",
-  email: "",
-  images: [{ url: "" }],
-  id: "",
-};
+export async function GetProfile(token: string | undefined): Promise<SpotifyUserProfile | null> {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  try {
+    noStore();
+    const response = await fetch("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
 
-export function useGetProfile() {
-  const { data: session } = useSession();
-  const [profile, setProfile] = useState<SpotifyUserProfile>(profileInitialState);
-  const [error, setError] = useState<string | null>(null);
+    if (!response.ok) {
+      throw new Error("Failed to fetch profile");
+    }
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      noStore();
-      if (session?.accessToken) {
-        try {
-          const response = await fetch("https://api.spotify.com/v1/me", {
-            headers: {
-              Authorization: "Bearer " + session.accessToken,
-            },
-          });
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch profile");
-          }
-
-          const data = await response.json();
-          setProfile(data);
-          setError(null);
-        } catch (err) {
-          console.error("An error occurred while fetching profile:", err);
-          setError("Failed to load profile");
-        }
-      }
-    };
-
-    fetchProfile();
-  }, [session]);
-
-  return { profile, error };
+    const data = await response.json();
+    return data as SpotifyUserProfile;
+  } catch (error) {
+    console.error("An error occurred while fetching profile:", error);
+    throw new Error("Failed to load profile");
+  }
 }

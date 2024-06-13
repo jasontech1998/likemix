@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 
 import { CreatePlaylistLink } from "@/app/lib/actions";
 import CopyUrl from "./CopyUrl";
+import { useToast } from "./ui/use-toast";
 
 interface TPlaylistButtonProps {
   trackUris: string[];
@@ -23,6 +24,7 @@ const PlaylistButton: React.FC<TPlaylistButtonProps> = ({
   profileId,
 }) => {
   const [playlistUrl, setPlaylistUrl] = useState<string | null>(null);
+  const { toast } = useToast()
 
   const onClick = async () => {
     const playlistUrl = await CreatePlaylistLink(
@@ -31,6 +33,10 @@ const PlaylistButton: React.FC<TPlaylistButtonProps> = ({
       profileId
     );
     setPlaylistUrl(playlistUrl);
+    toast({
+      description: "Created saved songs playlist",
+    })
+
   };
 
   return (
@@ -39,7 +45,7 @@ const PlaylistButton: React.FC<TPlaylistButtonProps> = ({
         <Button onClick={onClick}>Share Songs</Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
+        <DialogHeader className="mb-2">
           <DialogTitle>Copy and Share!</DialogTitle>
         </DialogHeader>
         {playlistUrl && <CopyUrl url={playlistUrl}></CopyUrl>}

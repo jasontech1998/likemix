@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { ModeToggle } from "@/components/ModeToggle";
+import { Toaster } from "@/components/ui/toaster"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
         >
           <SessionProvider>
             {children}
+            <Toaster />
             <div className="fixed bottom-4 right-4">
               <ModeToggle />
             </div>

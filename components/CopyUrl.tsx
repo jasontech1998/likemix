@@ -10,20 +10,23 @@ import {
 } from "@/components/ui/tooltip";
 
 import { Copy } from "lucide-react";
+import { useToast } from "./ui/use-toast";
 
 interface CopyUrlProps {
   url: string;
 }
 
 const CopyUrl: React.FC<CopyUrlProps> = ({ url }) => {
+  const { toast } = useToast()
+  
   const copyToClipboard = () => {
-    console.log("copy url button clicked");
-
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        // switch to use shadcn alert
-        alert("URL copied to clipboard!");
+        toast({
+          description: "Copied to clipboard",
+        })
+        
       })
       .catch((err) => {
         console.error("Could not copy text: ", err);

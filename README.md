@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Spotify Share
 
-## Getting Started
+![Music is my Life](assets/musicismylife.jpeg)
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Spotify Share is an app designed to automate the sharing of your liked (or saved) songs from any album. This tool makes it easy for music enthusiasts to share their favorite tracks with friends effortlessly.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Use Case
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The primary use case of Spotify Share is to automate the process of sharing all your liked (or saved) songs from an album. 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## How It Works
 
-## Learn More
+1. **Login with Spotify:** Authenticate using Spotify's OAuth.
+2. **View Albums:** The app displays the albums of your recently liked (or saved) songs.
+3. **Select Album:** Click on an album to view all the saved songs from that album.
+4. **Share Songs:** Click the "Share Songs" button to create a new playlist with all your saved songs from that album.
+5. **Get Shareable Link:** A link to the newly created playlist is generated, allowing you to easily share it with your friends.
 
-To learn more about Next.js, take a look at the following resources:
+## Why I Built This
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+As a music enthusiast, I often discuss new albums with my friends and share which songs we liked the most. To streamline this process and make sharing easier, I built Spotify Share. After all, sharing is caring!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

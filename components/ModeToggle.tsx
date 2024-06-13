@@ -16,7 +16,6 @@ export function ModeToggle() {
   const { setTheme } = useTheme()
 
   const setModeTheme = (theme: string) => {
-    console.log('mode', theme);
     setTheme(theme);
   }
 

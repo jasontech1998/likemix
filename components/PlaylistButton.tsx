@@ -36,7 +36,7 @@ const PlaylistButton: React.FC<TPlaylistButtonProps> = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button onClick={onClick}>Create Playlist</Button>
+        <Button onClick={onClick}>Share Songs</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

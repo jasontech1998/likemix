@@ -43,9 +43,6 @@ export async function AlbumDetails({ albumId }: { albumId: string }) {
             />
           ) : null}
         </div>
-        <p className="text-xl font-semibold">
-          Your liked songs from {album.artistName}
-        </p>
       </div>
     </div>
   );

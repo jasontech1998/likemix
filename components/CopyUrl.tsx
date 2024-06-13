@@ -22,6 +22,7 @@ const CopyUrl: React.FC<CopyUrlProps> = ({ url }) => {
     navigator.clipboard
       .writeText(url)
       .then(() => {
+        // switch to use shadcn alert
         alert("URL copied to clipboard!");
       })
       .catch((err) => {

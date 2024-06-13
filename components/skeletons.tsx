@@ -11,7 +11,6 @@ export function AlbumDetailsSkeleton() {
         <div className="mb-4">
           <div className="w-72 h-72 bg-gray-200 rounded-lg"></div>
         </div>
-        <div className="h-10 bg-gray-200 rounded w-3/4"></div>
       </div>
     </div>
   );
@@ -47,7 +46,7 @@ export function LikedTracksSkeleton() {
 export function TrackSkeleton() {
   return (
     <div
-      className={`${shimmer} relative overflow-hidden h-52 w-52 rounded-md bg-gray-200`}
+      className={`${shimmer} relative overflow-hidden h-56 w-60 rounded-md bg-gray-200`}
     />
   );
 }

@@ -1,8 +1,6 @@
 import { GetAlbumTracks, GetProfile } from "@/app/lib/actions";
 import PlaylistButton from "./PlaylistButton";
-import { BellRing, Check } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,

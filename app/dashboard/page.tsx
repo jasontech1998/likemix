@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { GetProfile } from "@/hooks/GetProfile";
+import { GetProfile } from "@/app/lib/actions";
 import Logout from "@/components/Logout";
 import { TracksGrid } from "@/components/TracksGrid";
 import { TracksGridSkeleton } from "@/components/skeletons";

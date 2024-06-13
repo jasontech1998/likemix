@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-import CreatePlaylistLink from "@/hooks/CreatePlaylistLink";
+import { CreatePlaylistLink } from "@/app/lib/actions";
 import CopyUrl from "./CopyUrl";
 
 interface TPlaylistButtonProps {
@@ -42,9 +42,7 @@ const PlaylistButton: React.FC<TPlaylistButtonProps> = ({
         <DialogHeader>
           <DialogTitle>Copy and Share!</DialogTitle>
         </DialogHeader>
-        {playlistUrl && (
-          <CopyUrl url={playlistUrl}></CopyUrl>
-        )}
+        {playlistUrl && <CopyUrl url={playlistUrl}></CopyUrl>}
       </DialogContent>
     </Dialog>
   );

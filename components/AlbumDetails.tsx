@@ -1,4 +1,4 @@
-import { GetAlbum } from "@/hooks/GetAlbum";
+import { GetAlbum } from "@/app/lib/actions";
 
 import { Slash } from "lucide-react";
 

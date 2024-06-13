@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { TAlbum } from "@/hooks/GetSavedTracks";
+import { TAlbum } from "@/app/lib/actions";
 
 import Link from "next/link";
 

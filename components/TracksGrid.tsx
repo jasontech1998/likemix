@@ -1,4 +1,4 @@
-import { GetSavedTracks } from "@/hooks/GetSavedTracks";
+import { GetSavedTracks } from "@/app/lib/actions";
 import AlbumCard from "./AlbumCard";
 
 export async function TracksGrid() {

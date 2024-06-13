@@ -1,5 +1,4 @@
-import { GetAlbumTracks } from "@/hooks/GetAlbumTracks";
-import { GetProfile } from "@/hooks/GetProfile";
+import { GetAlbumTracks, GetProfile } from "@/app/lib/actions";
 import PlaylistButton from "./PlaylistButton";
 
 export async function LikedTracks({ albumId }: { albumId: string }) {

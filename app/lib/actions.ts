@@ -1,3 +1,5 @@
+'use server';
+
 import { unstable_noStore as noStore } from "next/cache";
 
 import { auth } from "@/auth";
@@ -203,10 +205,10 @@ export async function GetAlbum(albumId: string) {
 export async function GetSavedTracks(): Promise<TAlbum[]> {
   const session = await auth();
   noStore();
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     const response = await fetch(
-      "https://api.spotify.com/v1/me/tracks?limit=21",
+      "https://api.spotify.com/v1/me/tracks?limit=50",
       {
         headers: {
           Authorization: "Bearer " + session?.token,
@@ -219,22 +221,30 @@ export async function GetSavedTracks(): Promise<TAlbum[]> {
     }
 
     const data = await response.json();
-    const tracks = data.items.map((item: { track: SpotifyTrack }) => {
+    const albumIds = new Set<string>();
+    const albums = data.items.map((item: { track: SpotifyTrack }) => {
       const { album, artists } = item.track;
       const artistName = artists[0].name;
-      return {
-        albumId: album.id,
-        albumImageUrl: album.images[0].url,
-        albumName: album.name,
-        artistName,
-      };
-    }) as TAlbum[];
-    return tracks;
+
+      if (!albumIds.has(album.id)) {
+        albumIds.add(album.id);
+        return {
+          albumId: album.id,
+          albumImageUrl: album.images[0].url,
+          albumName: album.name,
+          artistName,
+        };
+      }
+      return null;
+    }).filter((track: TAlbum) => track !== null) as TAlbum[]; // filter out null values as TAlbum[];
+
+    return albums;
   } catch (err) {
     console.error("An error occurred while fetching saved tracks:", err);
     return [albumInitialState];
   }
 }
+
 export async function GetProfile(): Promise<SpotifyUserProfile> {
   const session = await auth();
   try {

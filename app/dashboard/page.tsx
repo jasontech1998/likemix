@@ -12,15 +12,10 @@ export default async function Page() {
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         Dashboard
       </h1>
-      {profile && (
-        <div>
-          <h2>Welcome, {profile.display_name}</h2>
-        </div>
-      )}
+      {/* <Logout /> */}
       <Suspense fallback={<TracksGridSkeleton />}>
         <TracksGrid />
       </Suspense>
-      <Logout />
     </main>
   );
 }

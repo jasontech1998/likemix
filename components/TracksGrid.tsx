@@ -2,15 +2,14 @@ import { GetSavedTracks } from "@/app/lib/actions";
 import AlbumCard from "./AlbumCard";
 
 export async function TracksGrid() {
-  const tracks = await GetSavedTracks();
+  const albums = await GetSavedTracks();
   return (
-    <div className="grid grid-cols-3 gap-4 mt-8">
-      {tracks.map((track, index) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
+      {albums.map((album, index) => (
         <AlbumCard
-          key={track.albumId + index}
-          track={track}
+          key={album.albumId + index}
+          album={album}
           index={index}
-          albumId={track.albumId}
         />
       ))}
     </div>

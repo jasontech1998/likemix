@@ -20,17 +20,11 @@ export function AlbumDetailsSkeleton() {
 export function LikedTracksSkeleton() {
   return (
     <div
-      className={`${shimmer} relative overflow-hidden w-full max-w-2xl mt-6 p-6 bg-white shadow-lg rounded-lg animate-pulse`}
+      className={`${shimmer} relative overflow-hidden w-full max-w-lg mt-6 p-6 bg-white shadow-lg rounded-lg animate-pulse`}
     >
       <div className="flex flex-col items-center">
         <div className="mb-4 w-32 h-4 bg-gray-200 rounded"></div>
         <ul className="w-full mb-4">
-          <li className="mb-2 p-2 border-b">
-            <div className="h-4 bg-gray-200 rounded w-full"></div>
-          </li>
-          <li className="mb-2 p-2 border-b">
-            <div className="h-4 bg-gray-200 rounded w-full"></div>
-          </li>
           <li className="mb-2 p-2 border-b">
             <div className="h-4 bg-gray-200 rounded w-full"></div>
           </li>
@@ -60,7 +54,7 @@ export function TrackSkeleton() {
 
 export function TracksGridSkeleton() {
   return (
-    <div className="grid grid-cols-3 gap-4 mt-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8">
       <TrackSkeleton />
       <TrackSkeleton />
       <TrackSkeleton />

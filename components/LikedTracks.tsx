@@ -5,8 +5,9 @@ export async function LikedTracks({ albumId }: { albumId: string }) {
   const profile = await GetProfile();
   const savedTracks = await GetAlbumTracks(albumId);
   const trackUris = savedTracks.map((track) => track.uri);
+
   return (
-    <div className="w-full max-w-2xl mt-6 p-6 bg-white shadow-lg rounded-lg">
+    <div className="w-full max-w-lg mt-6 p-6 bg-white shadow-lg rounded-lg">
       <div className="flex flex-col items-center">
         <h4 className="mb-4 text-lg font-medium">Liked songs</h4>
         <ul className="w-full mb-4">

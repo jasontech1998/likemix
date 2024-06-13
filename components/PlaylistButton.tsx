@@ -26,7 +26,7 @@ const PlaylistButton: React.FC<TPlaylistButtonProps> = ({
 
   const onClick = async () => {
     const playlistUrl = await CreatePlaylistLink(
-      "Playlist Name",
+      "Spotify Shared Album",
       trackUris,
       profileId
     );

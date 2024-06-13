@@ -1,5 +1,7 @@
 import { unstable_noStore as noStore } from "next/cache";
 
+import { auth } from "@/auth";
+
 interface SpotifyUserProfile {
   display_name: string;
   email: string;
@@ -7,13 +9,22 @@ interface SpotifyUserProfile {
   id: string;
 }
 
-export async function GetProfile(token: string | undefined): Promise<SpotifyUserProfile | null> {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+const profileInitialState = {
+  display_name: "",
+  email: "",
+  images: [{ url: "" }],
+  id: "",
+};
+
+export async function GetProfile(): Promise<SpotifyUserProfile> {
+  const session = await auth();
+
+  // await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
     noStore();
     const response = await fetch("https://api.spotify.com/v1/me", {
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + session?.token,
       },
     });
 
@@ -25,6 +36,6 @@ export async function GetProfile(token: string | undefined): Promise<SpotifyUser
     return data as SpotifyUserProfile;
   } catch (error) {
     console.error("An error occurred while fetching profile:", error);
-    throw new Error("Failed to load profile");
+    return profileInitialState;
   }
 }

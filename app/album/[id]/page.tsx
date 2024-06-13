@@ -1,8 +1,4 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { useGetAlbumTracks } from "@/hooks/useGetAlbumTracks";
-import { useParams, useRouter } from "next/navigation";
+import { GetAlbumTracks } from "@/hooks/GetAlbumTracks";
 
 import { Slash } from "lucide-react";
 
@@ -15,51 +11,25 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
 import Image from "next/image";
-import { useGetAlbum } from "@/hooks/useGetAlbum";
-import { useGetProfile } from "@/hooks/useGetProfile";
-import useCreatePlaylistLink from "@/hooks/useCreatePlaylistLink";
-import { Button } from "@/components/ui/button";
-import CopyUrl from "@/components/CopyUrl";
+import { GetAlbum } from "@/hooks/GetAlbum";
+import { GetProfile } from "@/hooks/GetProfile";
 
-export default function Page() {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [playlistCreated, setIsPlaylistCreated] = useState(false);
-  const params = useParams<{ id: string }>();
+import PlaylistButton from "@/components/PlaylistButton";
+
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const { id: albumId } = params;
 
-  const { profile } = useGetProfile();
-  const { savedTracks, error } = useGetAlbumTracks(albumId);
-  const { createPlaylist, playlistId, playlistUrl } = useCreatePlaylistLink();
-  const { album } = useGetAlbum(albumId);
-
-  useEffect(() => {
-    if (playlistId && playlistUrl) {
-      setIsPlaylistCreated(true);
-    }
-  }, [playlistId, playlistUrl]);
-
-  const handleCreatePlaylist = () => {
-    const trackUris = savedTracks.map((track) => track.uri);
-    if (profile.id) {
-      createPlaylist(profile.id, "My New Playlist", trackUris);
-    } else {
-      console.error("User ID is undefined");
-    }
-  };
-
-  const handleTriggerDialog = () => {
-    setIsDialogOpen(true);
-    handleCreatePlaylist();
-  };
+  const profile = await GetProfile();
+  const savedTracks = await GetAlbumTracks(albumId);
+  const trackUris = savedTracks.map((track) => track.uri);
+  const album = await GetAlbum(albumId);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -96,35 +66,20 @@ export default function Page() {
         </p>
       </div>
       <div className="w-full max-w-2xl mt-6 p-6 bg-white shadow-lg rounded-lg">
-        {error ? (
-          <p className="text-red-500 text-center">{error}</p>
-        ) : (
-          <div className="flex flex-col items-center">
-            <h4 className="mb-4 text-lg font-medium">Liked songs</h4>
-            <ul className="w-full mb-4">
-              {savedTracks.map((albumTrack, index) => (
-                <li key={albumTrack.id + index} className="mb-2 p-2 border-b">
-                  <div className="text-base">{albumTrack.name}</div>
-                </li>
-              ))}
-            </ul>
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogTrigger asChild>
-                <Button onClick={handleTriggerDialog}>Create Playlist</Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>
-                    Copy and Share!
-                  </DialogTitle>
-                </DialogHeader>
-                {playlistCreated ? (
-                  <CopyUrl url={playlistUrl}></CopyUrl>
-                ) : null}
-              </DialogContent>
-            </Dialog>
-          </div>
-        )}
+        <div className="flex flex-col items-center">
+          <h4 className="mb-4 text-lg font-medium">Liked songs</h4>
+          <ul className="w-full mb-4">
+            {savedTracks.map((albumTrack, index) => (
+              <li key={albumTrack.id + index} className="mb-2 p-2 border-b">
+                <div className="text-base">{albumTrack.name}</div>
+              </li>
+            ))}
+          </ul>
+          <PlaylistButton
+            trackUris={trackUris}
+            profileId={profile.id}
+          ></PlaylistButton>
+        </div>
       </div>
     </div>
   );

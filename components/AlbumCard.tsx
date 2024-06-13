@@ -1,28 +1,20 @@
-import Image from "next/image";
-import { TAlbum } from "@/hooks/useGetSavedTracks";
-import { useGetAlbumTracks } from "@/hooks/useGetAlbumTracks";
-import { useState } from "react";
+"use client";
 
-interface TrackCardProps {
+import Image from "next/image";
+import { TAlbum } from "@/hooks/GetSavedTracks";
+
+import Link from "next/link";
+
+interface TAlbumCardProps {
   track: TAlbum;
   index: number;
-  userId: string | undefined;
-  onClick: (albumId: string) => void;
+  albumId: string;
 }
 
-const AlbumCard: React.FC<TrackCardProps> = ({ track, index, userId, onClick }) => {
-
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const { savedTracks, error } = useGetAlbumTracks(
-    dialogOpen ? track.albumId : ""
-  );
-
-  const albumCard__onClick = () => {
-    onClick(track.albumId);
-  };
+export default function AlbumCard({ track, index, albumId }: TAlbumCardProps) {
 
   return (
-    <div key={track.albumId + index} onClick={albumCard__onClick}>
+    <Link key={track.albumId + index} href={`/album/${albumId}`}>
       <Image
         src={track.albumImageUrl}
         alt={track.albumId}
@@ -33,8 +25,6 @@ const AlbumCard: React.FC<TrackCardProps> = ({ track, index, userId, onClick }) 
       <p className="text-white font-bold">
         {track.albumName} - {track.artistName}
       </p>
-    </div>
+    </Link>
   );
-};
-
-export default AlbumCard;
+}

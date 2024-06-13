@@ -1,13 +1,11 @@
 import React, { Suspense } from "react";
 import { GetProfile } from "@/hooks/GetProfile";
-import { GetSavedTracks, TAlbum } from "@/hooks/GetSavedTracks";
-import AlbumCard from "@/components/AlbumCard";
 import Logout from "@/components/Logout";
-import Loading from "./loading";
+import { TracksGrid } from "@/components/TracksGrid";
+import { TracksGridSkeleton } from "@/components/skeletons";
 
 export default async function Page() {
   const profile = await GetProfile();
-  const tracks = await GetSavedTracks();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -19,17 +17,8 @@ export default async function Page() {
           <h2>Welcome, {profile.display_name}</h2>
         </div>
       )}
-      <Suspense fallback={<Loading />}>
-        <div className="grid grid-cols-3 gap-4 mt-8">
-          {tracks.map((track, index) => (
-            <AlbumCard
-              key={track.albumId + index}
-              track={track}
-              index={index}
-              albumId={track.albumId}
-            />
-          ))}
-        </div>
+      <Suspense fallback={<TracksGridSkeleton />}>
+        <TracksGrid />
       </Suspense>
       <Logout />
     </main>

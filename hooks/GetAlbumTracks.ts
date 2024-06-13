@@ -7,6 +7,12 @@ export interface SpotifyAlbumTrack {
   uri: string;
 }
 
+const savedTracksInitialState = {
+  id: '',
+  name: '',
+  uri: '',
+}
+
 type CheckUserSavedTracksResponse = boolean[];
 
 export async function GetAlbumTracks(
@@ -33,12 +39,10 @@ export async function GetAlbumTracks(
     const albumTracksData = await albumTracksResponse.json();
     const tracks: SpotifyAlbumTrack[] = albumTracksData.items;
 
-    // If no tracks found, return an empty array
     if (!tracks || tracks.length === 0) {
       return [];
     }
 
-    // Fetch user's saved tracks
     const trackIds = tracks.map((track) => track.id).join(",");
     const checkSavedTracksUrl = `https://api.spotify.com/v1/me/tracks/contains?ids=${trackIds}`;
     const checkSavedTracksResponse = await fetch(checkSavedTracksUrl, {
@@ -56,7 +60,6 @@ export async function GetAlbumTracks(
     const checkSavedTracksData: CheckUserSavedTracksResponse =
       await checkSavedTracksResponse.json();
 
-    // Filter out saved tracks
     const savedTracks: SpotifyAlbumTrack[] = tracks.filter(
       (track, index) => checkSavedTracksData[index]
     );
@@ -64,6 +67,6 @@ export async function GetAlbumTracks(
     return savedTracks;
   } catch (error) {
     console.error("An error occurred:", error);
-    throw new Error("Failed to load album tracks");
+    return [savedTracksInitialState];
   }
 }

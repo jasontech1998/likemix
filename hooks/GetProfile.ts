@@ -18,10 +18,7 @@ const profileInitialState = {
 
 export async function GetProfile(): Promise<SpotifyUserProfile> {
   const session = await auth();
-
-  // await new Promise((resolve) => setTimeout(resolve, 3000));
   try {
-    noStore();
     const response = await fetch("https://api.spotify.com/v1/me", {
       headers: {
         Authorization: "Bearer " + session?.token,

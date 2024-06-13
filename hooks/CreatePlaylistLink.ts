@@ -8,8 +8,6 @@ export async function CreatePlaylistLink(
   userId: string
 ) {
   const session = await auth();
-  noStore();
-  console.log("create playlist link");
   try {
     const createPlaylistResponse = await fetch(
       `https://api.spotify.com/v1/users/${userId}/playlists`,

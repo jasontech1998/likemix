@@ -8,7 +8,7 @@ export default async function Page() {
   const profile = await GetProfile();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center pt-24 md:p-24">
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
         Dashboard
       </h1>

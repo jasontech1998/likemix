@@ -44,7 +44,7 @@ const PlaylistButton: React.FC<TPlaylistButtonProps> = ({
       <DialogTrigger asChild>
         <Button onClick={onClick}>Share Songs</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-5/6">
         <DialogHeader className="mb-2">
           <DialogTitle>Copy and Share!</DialogTitle>
         </DialogHeader>

@@ -15,7 +15,7 @@ import Image from "next/image";
 export async function AlbumDetails({ albumId }: { albumId: string }) {
   const album = await GetAlbum(albumId);
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center text-center">
       <Breadcrumb>
         <BreadcrumbList className="flex items-center">
           <BreadcrumbItem>

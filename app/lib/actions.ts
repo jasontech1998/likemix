@@ -73,7 +73,7 @@ export async function CreatePlaylistLink(
         },
         body: JSON.stringify({
           name: playlistName,
-          description: "My playlist description",
+          description: "Created with Spotify Shared",
           public: false,
         }),
       }

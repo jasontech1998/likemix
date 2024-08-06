@@ -2,14 +2,18 @@ import Login from "@/components/Login";
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 pb-0">
-      <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
-        Spotify Shared
-      </h1>
-      <p className="leading-7 text-center [&:not(:first-child)]:mt-6">
-        Quickly share your saved songs from any album
-      </p>
-      <Login />
-    </main>
+    <div className="flex items-center justify-center flex-grow">
+      <div className="max-w-4xl w-full text-center px-4 sm:px-6 lg:px-8">
+        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl mb-6">
+          Share Your Spotify Favorites
+        </h1>
+        <p className="mt-6 text-xl text-muted-foreground max-w-2xl mx-auto">
+          Quickly share your saved songs from any album with friends. Connect your Spotify account and start sharing your music taste effortlessly.
+        </p>
+        <div className="mt-10">
+          <Login />
+        </div>
+      </div>
+    </div>
   );
 }

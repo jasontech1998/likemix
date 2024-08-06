@@ -6,9 +6,9 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-import { ModeToggle } from "@/components/ModeToggle";
 import { Toaster } from "@/components/ui/toaster"
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -21,10 +21,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
+          "flex flex-col min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
@@ -35,12 +35,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SessionProvider>
-            {children}
+            <Navbar />
+            <main className="flex-grow flex flex-col">
+              {children}
+            </main>
             <Footer />
             <Toaster />
-            <div className="fixed bottom-4 right-4">
-              <ModeToggle />
-            </div>
           </SessionProvider>
         </ThemeProvider>
       </body>

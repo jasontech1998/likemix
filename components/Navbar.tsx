@@ -15,7 +15,7 @@ const Navbar = () => {
           <path d="M9 14C9 12.8954 10.3431 12 12 12C13.6569 12 15 12.8954 15 14" stroke="#1DB954" stroke-width="2" stroke-linecap="round"/>
           <circle cx="12" cy="16" r="1" fill="#1DB954"/>
         </svg>
-        Spotify Shared
+        LikeMix
       </Link>
       <div className="flex items-center space-x-4">
         {session && <Logout />}

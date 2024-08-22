@@ -1,15 +1,6 @@
 import { GetAlbumTracks, GetProfile, GetAlbum } from "@/app/lib/actions";
 import PlaylistButton from "./PlaylistButton";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import React from "react";
 
 export async function LikedTracks({ albumId }: { albumId: string }) {
@@ -19,31 +10,33 @@ export async function LikedTracks({ albumId }: { albumId: string }) {
   const trackUris = savedTracks.map((track) => track.uri);
 
   return (
-    <Card className="w-[380px] mt-4">
-      <CardHeader>
-        <CardTitle>Liked songs</CardTitle>
-        <CardDescription>
-          You have {savedTracks.length} liked songs.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        {savedTracks.map((albumTrack, index) => (
-          <React.Fragment key={albumTrack.id + index}>
-            <div className="items-start last:mb-0 last:pb-0">
-              <p className="text-base">{albumTrack.name}</p>
-            </div>
-            <Separator />
-          </React.Fragment>
-        ))}
-      </CardContent>
-      <CardFooter className="justify-end">
-        <PlaylistButton
-          trackUris={trackUris}
-          profileId={profile.id}
-          albumName={album.albumName}
-          userName={profile.display_name}
-        />
-      </CardFooter>
-    </Card>
+    <div className="w-full">
+      <div className="mb-6 text-center lg:text-left">
+        <h2 className="text-3xl md:text-4xl font-bold mb-2">{album.albumName}</h2>
+        <p className="text-xl md:text-2xl text-muted-foreground">{album.artistName}</p>
+      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Liked Songs ({savedTracks.length})</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            {savedTracks.map((albumTrack, index) => (
+              <div key={albumTrack.id + index} className="py-2">
+                <p className="text-base">{albumTrack.name}</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter>
+          <PlaylistButton
+            trackUris={trackUris}
+            profileId={profile.id}
+            albumName={album.albumName}
+            userName={profile.display_name}
+          />
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

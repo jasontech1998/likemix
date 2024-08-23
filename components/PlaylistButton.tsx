@@ -8,7 +8,7 @@ import CopyUrl from "./CopyUrl";
 import { useToast } from "./ui/use-toast";
 import PlaylistNameForm from "./PlaylistNameForm";
 import { Share } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const PlaylistButton: React.FC<{ trackUris: string[]; profileId: string; albumName: string; userName: string }> = 
   ({ trackUris, profileId, albumName, userName }) => {
